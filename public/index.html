@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Próximamente – Golden Peach</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Recoleta';
+            src: url('/fonts/Recoleta-Regular.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Recoleta';
+            src: url('/fonts/Recoleta-Bold.ttf') format('truetype');
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html, body { height: 100%; }
+
+        body {
+            background-color: #FFFAEC;
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: 16px;
+            color: #074921;
+            overflow: hidden;
+        }
+
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            padding: 32px 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Logo */
+        .logo {
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .logo img { height: 32px; width: auto; }
+
+        /* Main content */
+        .content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .text { max-width: 480px; }
+
+        .text h1 {
+            font-family: 'Recoleta', Georgia, serif;
+            font-size: 66.91px;
+            font-weight: 400;
+            line-height: 1.1;
+            color: #074921;
+            margin-bottom: 24px;
+        }
+
+        .text h1 span {
+            color: #FCBC00;
+            text-decoration: underline;
+            text-decoration-color: #FCBC00;
+        }
+
+        .text > p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #074921;
+            margin-bottom: 32px;
+            max-width: 360px;
+        }
+
+        /* Form box */
+        .form-box {
+            background: #F6EED9;
+            border-radius: 10px;
+            padding: 28px;
+            max-width: 520px;
+        }
+
+        .form-box h2 {
+            font-family: 'Recoleta', Georgia, serif;
+            font-size: 30.72px;
+            font-weight: 400;
+            margin-bottom: 8px;
+            color: #074921;
+        }
+
+        .form-box p {
+            font-size: 14px;
+            color: #074921;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .form-row {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .form-row input[type="email"] {
+            flex: 1;
+            padding: 14px 140px 14px 16px;
+            border: 1px solid #074921;
+            border-radius: 8px;
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: 15px;
+            background: transparent;
+            color: #074921;
+            outline: none;
+        }
+
+        .form-row input[type="email"]::placeholder {
+            color: rgba(7, 73, 33, 0.3);
+        }
+
+        .form-row button {
+            position: absolute;
+            right: -1px;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 14px 28px;
+            background: #074921;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: background 0.2s;
+        }
+
+        .form-row button:hover { background: #053d1a; }
+
+        .form-row button img { width: 11px; height: 11px; }
+
+        #form-msg {
+            margin-top: 12px;
+            font-size: 14px;
+            display: none;
+        }
+
+        /* Social */
+        .social { flex-shrink: 0; padding-bottom: 8px; }
+
+        .social p {
+            font-size: 13px;
+            color: #074921;
+            margin-bottom: 16px;
+        }
+
+        .social-links { display: flex; gap: 10px; }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #074921;
+            font-size: 13px;
+            background: #F6EED9;
+            transition: opacity 0.2s;
+        }
+
+        .social-links a:hover { opacity: 0.8; }
+
+        .social-links img { width: 14px; height: 14px; margin-right: 6px; }
+
+        /* Peach image */
+        .peach-image {
+            position: absolute;
+            right: -40px;
+            top: 0;
+            bottom: 0;
+            width: 55%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .peach-image img {
+            height: 100vh;
+            width: auto;
+            object-fit: cover;
+            object-position: left center;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            body { overflow: auto; }
+            .wrapper { padding: 24px; overflow: auto; }
+            .peach-image { display: none; }
+            .text h1 { font-size: 42px; }
+            .form-box { max-width: 100%; }
+            .form-row { flex-direction: column; gap: 10px; }
+            .form-row input[type="email"] { padding: 14px 16px; width: 100%; }
+            .form-row button { position: static; transform: none; width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+
+        <div class="logo">
+            <img src="/images/logo.svg" alt="Golden Peach">
+        </div>
+
+        <div class="content">
+            <div class="text">
+                <h1>Algo <span>jugoso</span><br>está en camino</h1>
+                <p>Nuestra tienda abre muy pronto con la mejor fruta de temporada, directamente desde los campos de Cieza hasta tu mesa.</p>
+
+                <div class="form-box">
+                    <h2>Sé el primero en saberlo</h2>
+                    <p>Déjanos tu email y te avisamos en cuanto abramos — con acceso anticipado y una sorpresa especial para los primeros.</p>
+                    <div class="form-row">
+                        <input type="email" id="email-input" placeholder="tu@email.com">
+                        <button id="submit-btn">
+                            Avísame
+                            <img src="/images/arrow.svg" alt="→">
+                        </button>
+                    </div>
+                    <p id="form-msg"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="social">
+            <p>Síguenos mientras tanto</p>
+            <div class="social-links">
+                <a href="#" target="_blank">
+                    <img src="/images/instagram.svg" alt="Instagram">
+                    Instagram
+                </a>
+                <a href="#" target="_blank">
+                    <img src="/images/facebook.svg" alt="Facebook">
+                    Facebook
+                </a>
+                <a href="#" target="_blank">
+                    <img src="/images/tiktok.svg" alt="TikTok">
+                    TikTok
+                </a>
+            </div>
+        </div>
+
+        <div class="peach-image">
+            <img src="/images/peach.png" alt="">
+        </div>
+
+    </div>
+
+    <script>
+        document.getElementById('submit-btn').addEventListener('click', async () => {
+            const email = document.getElementById('email-input').value.trim();
+            const msg   = document.getElementById('form-msg');
+            if (!email) return;
+
+            const res  = await fetch('/subscribe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email })
+            });
+            const data = await res.json();
+
+            msg.style.display = 'block';
+            msg.style.color   = data.ok ? '#074921' : '#c0392b';
+            msg.textContent   = data.message;
+
+            if (data.ok) document.getElementById('email-input').value = '';
+        });
+    </script>
+</body>
+</html>
