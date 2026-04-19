@@ -28,16 +28,15 @@
         body {
             background-color: #FFFAEC;
             font-family: 'Instrument Sans', sans-serif;
-            font-size: 16px;
+            font-size: clamp(15px, 1vw + 12px, 17px);
             color: #074921;
-            overflow: hidden;
         }
 
         .wrapper {
             display: flex;
             flex-direction: column;
-            height: 100vh;
-            padding: 32px 48px;
+            min-height: 100dvh;
+            padding: clamp(20px, 4vw, 48px) clamp(20px, 5vw, 64px);
             position: relative;
             overflow: hidden;
         }
@@ -47,7 +46,7 @@
             text-align: center;
             flex-shrink: 0;
         }
-        .logo img { height: 32px; width: auto; }
+        .logo img { height: clamp(24px, 3vw, 36px); width: auto; }
 
         /* Main content */
         .content {
@@ -56,17 +55,18 @@
             align-items: center;
             position: relative;
             z-index: 2;
+            padding: clamp(24px, 4vh, 48px) 0;
         }
 
-        .text { max-width: 480px; }
+        .text { max-width: min(480px, 100%); }
 
         .text h1 {
             font-family: 'Recoleta', Georgia, serif;
-            font-size: 66.91px;
+            font-size: clamp(36px, 5.5vw + 10px, 70px);
             font-weight: 400;
             line-height: 1.1;
             color: #074921;
-            margin-bottom: 24px;
+            margin-bottom: clamp(16px, 2.5vh, 28px);
         }
 
         .text h1 span {
@@ -76,10 +76,10 @@
         }
 
         .text > p {
-            font-size: 16px;
+            font-size: clamp(14px, 1vw + 10px, 16px);
             line-height: 1.6;
             color: #074921;
-            margin-bottom: 32px;
+            margin-bottom: clamp(20px, 3vh, 36px);
             max-width: 360px;
         }
 
@@ -87,20 +87,20 @@
         .form-box {
             background: #F6EED9;
             border-radius: 10px;
-            padding: 28px;
-            max-width: 520px;
+            padding: clamp(20px, 3vw, 28px);
+            width: min(520px, 100%);
         }
 
         .form-box h2 {
             font-family: 'Recoleta', Georgia, serif;
-            font-size: 30.72px;
+            font-size: clamp(20px, 2.5vw + 6px, 32px);
             font-weight: 400;
             margin-bottom: 8px;
             color: #074921;
         }
 
         .form-box p {
-            font-size: 14px;
+            font-size: clamp(13px, 0.8vw + 10px, 15px);
             color: #074921;
             margin-bottom: 20px;
             line-height: 1.5;
@@ -122,6 +122,7 @@
             background: transparent;
             color: #074921;
             outline: none;
+            min-height: 48px;
         }
 
         .form-row input[type="email"]::placeholder {
@@ -133,7 +134,7 @@
             right: -1px;
             top: 50%;
             transform: translateY(-50%);
-            padding: 14px 28px;
+            padding: 14px 22px;
             background: #074921;
             color: #fff;
             border: none;
@@ -145,8 +146,9 @@
             white-space: nowrap;
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 10px;
             transition: background 0.2s;
+            min-height: 48px;
         }
 
         .form-row button:hover { background: #053d1a; }
@@ -165,27 +167,28 @@
         .social p {
             font-size: 13px;
             color: #074921;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
-        .social-links { display: flex; gap: 10px; }
+        .social-links { display: flex; gap: 8px; flex-wrap: wrap; }
 
         .social-links a {
             display: flex;
             align-items: center;
             gap: 6px;
-            padding: 7px 14px;
+            padding: 10px 14px;
             border-radius: 6px;
             text-decoration: none;
             color: #074921;
             font-size: 13px;
             background: #F6EED9;
             transition: opacity 0.2s;
+            min-height: 44px;
         }
 
         .social-links a:hover { opacity: 0.8; }
 
-        .social-links img { width: 14px; height: 14px; margin-right: 6px; }
+        .social-links img { width: 14px; height: 14px; }
 
         /* Peach image */
         .peach-image {
@@ -202,22 +205,36 @@
         }
 
         .peach-image img {
-            height: 100vh;
+            height: 100dvh;
             width: auto;
             object-fit: cover;
             object-position: left center;
         }
 
-        /* Responsive */
+        /* Tablet: ocultar imagen, ajustar layout */
         @media (max-width: 900px) {
-            body { overflow: auto; }
-            .wrapper { padding: 24px; overflow: auto; }
             .peach-image { display: none; }
-            .text h1 { font-size: 42px; }
-            .form-box { max-width: 100%; }
-            .form-row { flex-direction: column; gap: 10px; }
-            .form-row input[type="email"] { padding: 14px 16px; width: 100%; }
-            .form-row button { position: static; transform: none; width: 100%; justify-content: center; }
+            .text { max-width: 100%; }
+            .form-box { width: 100%; }
+        }
+
+        /* Mobile: form en columna */
+        @media (max-width: 540px) {
+            .form-row {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+            .form-row input[type="email"] {
+                padding: 14px 16px;
+                border-radius: 8px;
+            }
+            .form-row button {
+                position: static;
+                transform: none;
+                justify-content: center;
+                border-radius: 8px;
+            }
         }
     </style>
 </head>
