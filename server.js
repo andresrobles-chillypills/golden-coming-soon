@@ -16,6 +16,12 @@ const subscribeLimiter = rateLimit({
     message: { ok: false, message: 'Demasiados intentos. Espera unos minutos.' }
 });
 
+const adminLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 10,
+    message: 'Demasiados intentos. Espera unos minutos.'
+});
+
 app.post('/subscribe', subscribeLimiter, async (req, res) => {
     const email = (req.body.email || '').trim().toLowerCase();
 
@@ -38,9 +44,9 @@ app.post('/subscribe', subscribeLimiter, async (req, res) => {
     }
 });
 
-app.get('/admin/subscribers', async (req, res) => {
-    const secret = req.query.secret || req.headers['x-admin-secret'];
-    if (secret !== process.env.ADMIN_SECRET) {
+app.get('/admin/subscribers', adminLimiter, async (req, res) => {
+    const secret = req.headers['x-admin-secret'];
+    if (!secret || secret !== process.env.ADMIN_SECRET) {
         return res.status(401).send('No autorizado');
     }
 
